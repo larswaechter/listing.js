@@ -58,11 +58,11 @@ listing.contains(list, 'List');
 ```javascript
 var list = "43,21,5,9,104";
 listing.each(list, function(item, index) {
-  // Iterartion 0 -> item = 43, index = 0
-  // Iterartion 0 -> item = 21, index = 1
-  // Iterartion 0 -> item = 5, index = 2
-  // Iterartion 0 -> item = 9, index = 3
-  // Iterartion 0 -> item = 104, index = 4
+  // Iterartion 1 -> item = 43, index = 0
+  // Iterartion 2 -> item = 21, index = 1
+  // Iterartion 3 -> item = 5, index = 2
+  // Iterartion 4 -> item = 9, index = 3
+  // Iterartion 5 -> item = 104, index = 4
 });
 ```
 
@@ -90,6 +90,9 @@ listing.replace(myString, list1, list2);
 // Result: "This is no fun"
 ```
 
+#### Note:
+All test cases are available in the tests.js file
+
 ## Methods
 * ```listing.append(list, value)```: Appending a value to a list
 * ```listing.avg(list)```: Returns the average of values in a list
@@ -99,11 +102,12 @@ listing.replace(myString, list1, list2);
 * ```listing.containsNoCase(list, value)```: Checks if a list contains a certain substring and returns its position - Not case sensitive
 * ```listing.deleteAt(list, position)```: Deletes a value at a certain position
 * ```listing.each(list, function(value, index){})```: Loops a list and returns each single value and its index
-* ```listing.find(list, value)```: Searches for a value in a list and returns its position
-* ```listing.findNoCase(list, value)```: Searches for a value in a list and returns its position - Not case sensitive
+* ```listing.find(list, value)```: Searches for a value in a list and returns true if it's included
+* ```listing.findNoCase(list, value)```: Searches for a value in a list and returns true if it's included - Not case sensitive
 * ```listing.first(list)```: Returns the first value of a list
 * ```listing.getAt(list, position)```: Returns the value of a list at a certain position
 * ```listing.getDuplicates(list)```: Returns a new list with all duplicated values
+* ```listing.indexOf(list, value)```: Returns the position of a certain value in a list
 * ```listing.isList(list)```: Checks for a valid list
 * ```listing.insertAt(list, position, value)```: Inserts a value at a certain position
 * ```listing.last(list)```: Returns the last value of a list

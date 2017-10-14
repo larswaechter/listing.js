@@ -11,11 +11,13 @@
     return list.split(getDelimiter(list));
   }
 
-  function toIntArray(arr) {
-    for (var i = 0; i < arr.length; i++)
-      arr[i] = Number(arr[i].trim());
+  function listToIntArray(list) {
+    var intListArr = listToArray(list)
 
-    return arr;
+    for (var i = 0; i < intListArr.length; i++)
+      intListArr[i] = Number(intListArr[i]);
+
+    return intListArr;
   }
 
   /*** Library ***/
@@ -26,7 +28,7 @@
     },
 
     listing.avg = function (list) {
-      var listArr = toIntArray(listToArray(list));
+      var listArr = listToIntArray(list);
       var sum = 0;
 
       for (var i = 0; i < listArr.length; i++)
@@ -38,7 +40,7 @@
     listing.changeDelims = function (list, newDelimiter) {
       var regex = new RegExp(getDelimiter(list), "g");
 
-      return list.replace(regex, newDelimiter);
+      return list.replace(regex, getDelimiter(newDelimiter));
     },
 
 
@@ -53,7 +55,7 @@
       var listArr = listToArray(list);
 
       for (var i = 0; i < listArr.length; i++)
-        if(String(listArr[i]).includes(String(substring))) return i;
+        if(listArr[i].includes(substring)) return i;
 
       return 0;
     },
@@ -62,7 +64,7 @@
       var listArr = listToArray(list);
 
       for (var i = 0; i < listArr.length; i++)
-        if(String(listArr[i]).toLowerCase().includes(String(substring).toLowerCase())) return i;
+        if(listArr[i].toLowerCase().includes(substring.toLowerCase())) return i;
 
       return 0;
     },
@@ -78,25 +80,25 @@
       var listArr = listToArray(list);
 
       for (var i = 0; i < listArr.length; i++)
-        callback(listArr[i].trim(), i);
+        callback(listArr[i], i);
     },
 
     listing.find = function (list, value) {
       var listArr = listToArray(list);
 
       for (var i = 0; i < listArr.length; i++)
-        if(String(listArr[i]) == String(value)) return i;
+        if(listArr[i] == value) return true;
 
-      return 0;
+      return false;
     },
 
     listing.findNoCase = function (list, value) {
       var listArr = listToArray(list);
 
       for (var i = 0; i < listArr.length; i++)
-        if(String(listArr[i]).toLowerCase() == String(value).toLowerCase()) return i;
+        if(listArr[i].toLowerCase() == value.toLowerCase()) return true;
 
-      return 0;
+      return false;
     },
 
     listing.first = function (list) {
@@ -117,9 +119,15 @@
 
       for (var i = 0; i < listArr.length; i++) {
         for (var k = i + 1; k < listArr.length; k++)
-          if(listArr[i].trim() == listArr[k].trim()) tempArr.push(listArr[k].trim());
+          if(listArr[i] == listArr[k]) tempArr.push(listArr[k]);
       }
       return tempArr.toString();
+    },
+
+    listing.indexOf = function (list, value) {
+      var listArr = listToArray(list);
+
+      return listArr.indexOf(String(value));
     },
 
     listing.isList = function (list) {
@@ -143,7 +151,7 @@
     },
 
     listing.max = function (list) {
-      var listArr = toIntArray(listToArray(list));
+      var listArr = listToIntArray(list);
       var max = listArr[0];
 
       for (var i = 0; i < listArr.length; i++)
@@ -153,7 +161,7 @@
     },
 
     listing.min = function (list) {
-      var listArr = toIntArray(listToArray(list));
+      var listArr = listToIntArray(list);
       var min = listArr[0];
 
       for (var i = 0; i < listArr.length; i++)
@@ -183,7 +191,7 @@
 
       for (var i = 0; i < listArr.length; i++) {
         for (var k = i + 1; k < listArr.length; k++)
-          if(listArr[i].trim() == listArr[k].trim()) listArr.splice(k, 1)
+          if(listArr[i] == listArr[k]) listArr.splice(k, 1)
       }
       return listArr.toString();
     },
@@ -195,8 +203,8 @@
 
       for (var i = 0; i < stringArr.length; i++) {
         for (var k = 0; k < listArr1.length; k++)
-          if(stringArr[i].trim() == listArr1[k].trim())
-            stringArr[i] = listArr2[k].trim();
+          if(stringArr[i] == listArr1[k])
+            stringArr[i] = listArr2[k];
       }
       return stringArr.join(' ');
     },
@@ -208,8 +216,8 @@
 
       for (var i = 0; i < stringArr.length; i++) {
         for (var k = 0; k < listArr1.length; k++)
-          if(stringArr[i].trim().toLowerCase() == listArr1[k].trim().toLowerCase())
-            stringArr[i] = listArr2[k].trim();
+          if(stringArr[i].toLowerCase() == listArr1[k].toLowerCase())
+            stringArr[i] = listArr2[k];
       }
       return stringArr.join(' ');
     },
@@ -239,14 +247,13 @@
     },
 
     listing.sort = function (list) {
-      var listArr = toIntArray(listToArray(list));
+      var listArr = listToIntArray(list);
 
       return listArr.sort(function(a,b){return a - b}).toString();
     },
 
     listing.swap = function (list, pos1, pos2) {
       var listArr = listToArray(list);
-
       var temp = listArr[pos1];
       listArr[pos1] = listArr[pos2];
       listArr[pos2] = temp;
