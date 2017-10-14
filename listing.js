@@ -43,7 +43,6 @@
       return list.replace(regex, getDelimiter(newDelimiter));
     },
 
-
     listing.concat = function (list1, list2) {
       var listArr1 = listToArray(list1);
       var listArr2 = listToArray(list2);
