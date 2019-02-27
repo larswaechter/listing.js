@@ -1,99 +1,64 @@
-# Listing.js
+# listing.js
 JS Library for working with lists
 
-### Import:
-Node.js: ```const listing = require('./listing');``` <br/>
-Browser: ```<script type="text/javascript" src="listing.js"></script>```
-
-
 ## Introduction:
-Listings.js is a library that helps you to work with lists in Javascript like you may know from other programming languages. For example Adobe's ColdFusion. Most of the functions are the same as the JS array methods, and even more.
+listing.js is a library that helps you to work with lists in JavaScript like you may know from other programming languages. For example Adobe's ColdFusion. Most of the functions are similar to JS Array methods.
 
-## Valid delimiters and lists:
-Listings.js recognizes three different types of delimiters:
-* ```var list = "1,2,3,4"```
-* ```var list = "1;2;3;4"```
-* ```var list = "1:2:3:4"```
-
-In this case, each single number is a list element. <br/>
-
-You can also use strings as elements:
-* ```var list = "hello,I,am,Lars"```
-* ```var list = "Nice;to;see;you"```
-
-It's also possible to use empty spaces like:
-* ```var list = "hello my,name is,not Peter"```
-* ```listing.find(list, 'name is') -> Result: 1```
-
-## Examples:
-```javascript
-var list = "1,54,2,64,24,76";
-listing.append(list, 89);
-
-// Result: "1,54,2,64,24,76,89"
+## Install:
+Install via npm
+```
+npm i --save listing.js
 ```
 
+## Usage:
 ```javascript
-var list = "1,54,2,64,24,76";
-listing.changeDelims(list, ";");
+const listing = require('listing.js');
 
-// Result: "1;54;2;64;24;76;89"
-```
+const myList = new Listing('1,2,3,4');
+myList.append(5);
 
-```javascript
-var list1 = "1,54,2";
-var list2 = "77,31,501";;
-listing.concat(list1, list2);
-
-// Result: "1,54,2,77,31,501"
-```
-
-```javascript
-var list = "ThisIs,aList,withStrings";
-listing.contains(list, 'List');
-
-// Result: "1"
-```
-
-```javascript
-var list = "43,21,5,9,104";
-listing.each(list, function(item, index) {
-  // Iterartion 1 -> item = 43, index = 0
-  // Iterartion 2 -> item = 21, index = 1
-  // Iterartion 3 -> item = 5, index = 2
-  // Iterartion 4 -> item = 9, index = 3
-  // Iterartion 5 -> item = 104, index = 4
+myList.each(val => {
+  console.log(val);
 });
 ```
 
+## Valid delimiters and lists:
+listings.js recognizes three different types of delimiters:
 ```javascript
-var list = "13,32,54,13,11,6,103,54";
-listing.getDuplicates(list);
+const listing = require('listing.js');
 
-// Result: "13,54"
+// ,
+const myList_1 = new Listing('1,2,3,4');
+
+// ;
+const myList_2 = new Listing('1;2;3;4');
+
+// :
+const myList_3 = new Listing('1:2:3:4');
 ```
 
-```javascript
-var list = "13,32,54";
-listing.len(list);
+In this case, each single number is a list element.
 
-// Result: "3"
+You can also use strings instead of numbers as elements:
+```javascript
+const listing = require('listing.js');
+
+const myList = new Listing('hello,I,am,Lars');
 ```
 
+The list elements are accessible via the ```.list``` property.
+Example:
 ```javascript
-var myString = 'This is a test';
-var list1 = 'a,test';
-var list2 = 'no,fun';
+const listing = require('listing.js');
 
-listing.replace(myString, list1, list2);
+const myList = new Listing('1,2,3');
 
-// Result: "This is no fun"
+// Expected output: 1,2,3
+console.log(myList.list)
 ```
 
-#### Note:
-All test cases are available in the tests.js file
 
-## Methods
+## Documentation
 * ```listing.append(list, value)```: Appending a value to a list
 * ```listing.avg(list)```: Returns the average of values in a list
 * ```listing.changeDelims(list, newDelimiter)```: Changes the delimiter of a list

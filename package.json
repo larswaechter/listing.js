@@ -1,0 +1,15 @@
+{
+  "name": "listing.js",
+  "version": "1.0.0",
+  "author": "Lars Wächter",
+  "description": "JS Library for working with lists",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larswaechter/listing.js.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/larswaechter/Listing.js/issues"
+  }
+}
