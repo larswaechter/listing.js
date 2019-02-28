@@ -57,7 +57,6 @@ const myList = new listing('1,2,3');
 console.log(myList.list)
 ```
 
-
 ## Documentation
 
 ### Properties / Getter
@@ -98,3 +97,6 @@ console.log(myList.list)
 - `sort()`: Sort list
 - `swap(pos1, pos2)`: Swap list elements at given positions
 - `toArray()`: Transform list to array based on current delimiter
+
+## License
+[MIT](https://github.com/larswaechter/listing.js/blob/master/LICENSE)
