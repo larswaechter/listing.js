@@ -1,6 +1,8 @@
 # listing.js
 JS Library for working with lists
 
+[![Build Status](https://travis-ci.com/larswaechter/listing.js.svg?branch=master)](https://travis-ci.com/larswaechter/listing.js)
+
 ## Introduction:
 listing.js is a library that helps you to work with lists in JavaScript like you may know from other programming languages. For example Adobe's ColdFusion. Most of the functions are similar to JS array methods.
 
