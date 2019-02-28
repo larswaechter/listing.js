@@ -33,9 +33,17 @@ describe('listing.js', function () {
     assert.equal(myList.list, '1,2,3,4');
   });
 
+  it('clear list', function () {
+    const myList = new listing('1,2,3,4');
+    myList.clear()
+
+    assert.equal(myList.list, '');
+  });
+
   it('concat two lists into one', function () {
     const myList = new listing('1,2,3');
-    myList.concat('4,5,6');
+    const myNewList = new listing('4,5,6');
+    myList.concat(myNewList);
 
     assert.equal(myList.list, '1,2,3,4,5,6');
   });

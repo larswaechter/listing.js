@@ -4,6 +4,7 @@
   "author": "Lars Wächter",
   "description": "JS Library for working with lists",
   "main": "index.js",
+  "homepage": "https://github.com/larswaechter/listing.js",
   "scripts": {
     "test": "mocha"
   },
