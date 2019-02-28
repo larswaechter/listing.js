@@ -5,8 +5,11 @@
  * Released under the MIT License.
  */
 
-
 class Listing {
+  /**
+   * Create Listing instance
+   * @param {string} list
+   */
   constructor(list) {
     this.list = list || '';
   }
@@ -15,9 +18,11 @@ class Listing {
    * Create new list from array
    * @param {string} array
    * @param {string} delimiter
+   * @param {boolean} createInstance = false
    */
-  static arrToList(array, delimiter) {
-    return array.join(delimiter || ',');
+  static toList(array, delimiter = ',', createInstance = false) {
+    const list = array.join(delimiter);
+    return createInstance ? new Listing(list) : list;
   }
 
   /**
@@ -36,7 +41,7 @@ class Listing {
   }
 
   /**
-   * Append value to list
+   * Append new element to list
    * @param {string} value
    */
   append(value) {
@@ -53,7 +58,7 @@ class Listing {
    */
   concat(list) {
     const listArr = this.toArray().concat(list.split(this.delimiter));
-    this.list = Listing.arrToList(listArr, this.delimiter);
+    this.list = Listing.toList(listArr, this.delimiter);
   }
 
   /**
@@ -96,7 +101,7 @@ class Listing {
     const listArr = this.toArray();
     listArr.splice(pos, 1);
 
-    this.list = Listing.arrToList(listArr, this.delimiter)
+    this.list = Listing.toList(listArr, this.delimiter);
   }
 
   /**
@@ -116,10 +121,10 @@ class Listing {
    * @param {function} fn
    */
   filter(fn) {
-    const listArr = this.toArray()
-    const listArrMapped = listArr.filter(fn)
+    const listArr = this.toArray();
+    const listArrMapped = listArr.filter(fn);
 
-    return new Listing(Listing.arrToList(listArrMapped, this.delimiter));
+    return new Listing(Listing.toList(listArrMapped, this.delimiter));
   }
 
   /**
@@ -129,13 +134,13 @@ class Listing {
   find(value) {
     const listArr = this.toArray();
 
-    return listArr.includes(value)
+    return listArr.includes(value);
   }
 
   /**
    * Check if list includes given value (case-insensitive)
    * @param {string} value
-  */
+   */
   findNoCase(value) {
     const listArr = this.toArray();
 
@@ -167,9 +172,12 @@ class Listing {
     return listArr[pos];
   }
 
+  /**
+   * Get new list of duplicated list elements
+   */
   getDuplicates() {
     const listArr = this.toArray();
-    var tempArr = new Array();
+    const tempArr = new Array();
 
     for (var i = 0; i < listArr.length; i++) {
       for (var k = i + 1; k < listArr.length; k++) {
@@ -178,7 +186,8 @@ class Listing {
         }
       }
     }
-    return tempArr.toString();
+
+    return new Listing(Listing.toList(tempArr, this.delimiter));
   }
 
   /**
@@ -200,14 +209,14 @@ class Listing {
     const listArr = this.toArray();
     listArr.splice(pos, 0, value);
 
-    this.list = Listing.arrToList(listArr, this.delimiter);
+    this.list = Listing.toList(listArr, this.delimiter);
   }
 
   /**
    * Get last list element
    */
   last() {
-    const listArr = this.toArray()
+    const listArr = this.toArray();
     return listArr[listArr.length - 1];
   }
 
@@ -216,10 +225,10 @@ class Listing {
    * @param {function} fn
    */
   map(fn) {
-    const listArr = this.toArray()
-    const listArrMapped = listArr.map(fn)
+    const listArr = this.toArray();
+    const listArrMapped = listArr.map(fn);
 
-    return new Listing(Listing.arrToList(listArrMapped, this.delimiter));
+    return new Listing(Listing.toList(listArrMapped, this.delimiter));
   }
 
   /**
@@ -230,7 +239,7 @@ class Listing {
     const listArr = this.toArray();
     listArr.splice(0, 0, value);
 
-    this.list = Listing.arrToList(listArr, this.delimiter);
+    this.list = Listing.toList(listArr, this.delimiter);
   }
 
   /**
@@ -242,7 +251,7 @@ class Listing {
     listArr.splice(0, 0, value);
     listArr.splice(listArr.length, 0, value);
 
-    this.list = Listing.arrToList(listArr, this.delimiter);
+    this.list = Listing.toList(listArr, this.delimiter);
   }
 
   /**
@@ -259,25 +268,25 @@ class Listing {
       }
     }
 
-    this.list = Listing.arrToList(listArr, this.delimiter);
+    this.list = Listing.toList(listArr, this.delimiter);
   }
 
   /**
-   * Get list without first element
+   * Get list elements without first element
    */
   rest() {
     const listArr = this.toArray();
     listArr.shift();
 
-    return Listing.arrToList(listArr, this.delimiter);
+    return Listing.toList(listArr, this.delimiter);
   }
 
   /**
-   * Reverse list
+   * Reverse list elements
    */
   reverse() {
     const listArr = this.toArray().reverse();
-    this.list = Listing.arrToList(listArr, this.delimiter);
+    this.list = Listing.toList(listArr, this.delimiter);
   }
 
   /**
@@ -288,6 +297,8 @@ class Listing {
   setAt(pos, value) {
     const listArr = this.toArray();
     listArr[pos] = value;
+
+    this.list = Listing.toList(listArr, this.delimiter);
   }
 
   /**
@@ -295,8 +306,8 @@ class Listing {
    * @param {string} delimiter
    */
   setDelimiter(delimiter) {
-    const regex = new RegExp(this.delimiter, "g");
-    this.list.replace(regex, delimiter);
+    const regex = new RegExp(this.delimiter, 'g');
+    this.list = this.list.replace(regex, delimiter);
   }
 
   /**
@@ -306,9 +317,9 @@ class Listing {
    */
   slice(start, end) {
     const listArr = this.toArray();
-    listArr.slice(start, end);
+    const newArr = listArr.slice(start, end);
 
-    this.list = Listing.arrToList(listArr, this.delimiter);
+    this.list = Listing.toList(newArr, this.delimiter);
   }
 
   /**
@@ -318,7 +329,7 @@ class Listing {
     const listArr = this.toArray();
     listArr.sort();
 
-    this.list = Listing.arrToList(listArr, this.delimiter);
+    this.list = Listing.toList(listArr, this.delimiter);
   }
 
   /**
@@ -333,7 +344,7 @@ class Listing {
     listArr[pos1] = listArr[pos2];
     listArr[pos2] = temp;
 
-    this.list = Listing.arrToList(listArr, this.delimiter);
+    this.list = Listing.toList(listArr, this.delimiter);
   }
 
   /**
@@ -342,7 +353,6 @@ class Listing {
   toArray() {
     return this.list.split(this.delimiter);
   }
-
 }
 
 module.exports = Listing;
