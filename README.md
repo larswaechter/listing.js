@@ -1,14 +1,14 @@
 # listing.js
-JS Library for working with lists
+JavaScript library for working with comma separated lists
 
 [![Build Status](https://travis-ci.com/larswaechter/listing.js.svg?branch=master)](https://travis-ci.com/larswaechter/listing.js)
 
 [![NPM](https://nodei.co/npm/listing.js.png)](https://nodei.co/npm/listing.js/)
 
 ## Introduction:
-listing.js is a library that helps you to work with lists in JavaScript like you may know from other programming languages. For example Adobe's ColdFusion. Most of the functions are similar to JS array methods.
+listing.js is a library that simplifies the work with comma separated lists in JavaScript. Most of the features are similar to those of array methods. Besides commas, other delimiters are supported as well.
 
-## Install:
+## Installtion:
 Install via npm
 ```
 npm i --save listing.js
@@ -29,7 +29,7 @@ myList.each(val => {
 ```
 
 ## Valid delimiters and lists:
-listing.js recognizes three different types of delimiters:
+listing.js allows three different delimiters:
 ```javascript
 const listing = require('listing.js');
 
@@ -65,7 +65,7 @@ console.log(myList.list)
 
 ## Documentation
 
-### Properties / Getter
+### Properties / Getters
 - `list`: Return list elements
 - `length`: Return number of list elements
 - `delimmiter`: Return list delimiter
