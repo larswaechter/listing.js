@@ -8,7 +8,7 @@ JavaScript library for working with comma separated lists
 ## Introduction:
 listing.js is a library that simplifies the work with comma separated lists in JavaScript. Most of the features are similar to those of array methods. Besides commas, other delimiters are supported as well.
 
-## Installtion:
+## Installation:
 Install via npm
 ```
 npm i --save listing.js
