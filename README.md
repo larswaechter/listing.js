@@ -63,6 +63,12 @@ console.log(myList.list); // Expected output: 1,2,3
 
 ## Documentation
 
+You can find the complete documentation [here](https://larswaechter.github.io/listing.js/).
+
+## Contributing
+
+See [CONTRIBUTING.md](https://github.com/larswaechter/listing.js/blob/master/README.md)
+
 ## License
 
 [MIT](https://github.com/larswaechter/listing.js/blob/master/LICENSE)

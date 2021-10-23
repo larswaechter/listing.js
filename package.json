@@ -1,14 +1,20 @@
 {
 	"name": "listing.js",
 	"version": "2.0.1",
-	"author": "Lars Wächter",
+	"author": {
+		"name": "Lars Wächter",
+		"url": "https://larswaechter.dev/"
+	},
 	"description": "A JavaScript library for working with comma separated lists.",
 	"main": "index.js",
-	"homepage": "https://github.com/larswaechter/listing.js",
+	"homepage": "https://larswaechter.github.io/listing.js/",
 	"scripts": {
 		"test": "mocha",
 		"docs": "jsdoc index.js -d docs -R README.md",
-		"prettier": "prettier --config ./.prettierrc --write \"./(index|test).js\""
+		"prettier": "prettier --config ./.prettierrc --write \"./(index|test).js\"",
+		"prepublishOnly": "npm test",
+		"version": "npm run prettier && npm run docs && git add .",
+		"postversion": "git push && git push --tags"
 	},
 	"repository": {
 		"type": "git",
