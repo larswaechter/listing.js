@@ -4,6 +4,42 @@ const assert = require('assert');
 const Listing = require('./');
 
 describe('listing.js', function () {
+	it('validate delimiters', function () {
+		const myList = new Listing('1,2,3');
+		assert(Listing.isValidDelimiter(','));
+		assert.equal(myList.delimiter, ',');
+		assert.equal(myList.list, '1,2,3');
+
+		const myList1 = new Listing('1;2;3');
+		assert(Listing.isValidDelimiter(';'));
+		assert.equal(myList1.delimiter, ';');
+		assert.equal(myList1.list, '1;2;3');
+
+		const myList2 = new Listing('1:2:3');
+		assert(Listing.isValidDelimiter(':'));
+		assert.equal(myList2.delimiter, ':');
+		assert.equal(myList2.list, '1:2:3');
+
+		const myList3 = new Listing('1-2-3');
+		assert(Listing.isValidDelimiter('-'));
+		assert.equal(myList3.delimiter, '-');
+		assert.equal(myList3.list, '1-2-3');
+
+		const myList4 = new Listing('1_2_3');
+		assert(Listing.isValidDelimiter('_'));
+		assert.equal(myList4.delimiter, '_');
+		assert.equal(myList4.list, '1_2_3');
+
+		const myList5 = new Listing('1.2.3');
+		assert(Listing.isValidDelimiter('.'));
+		assert.equal(myList5.delimiter, '.');
+		assert.equal(myList5.list, '1.2.3');
+	});
+
+	it('compare list items', function () {
+		assert.equal(new Listing('1,2,3').list, '1,2,3');
+	});
+
 	it('validate list length', function () {
 		const myList = new Listing('1,2,3,4');
 		assert.equal(myList.length, 4);
@@ -12,10 +48,6 @@ describe('listing.js', function () {
 	it('create new listing instance from array', function () {
 		const myList = Listing.arrayToList([1, 2, 3, 4], ',');
 		assert.equal(myList.list, '1,2,3,4');
-	});
-
-	it('compare list elements', function () {
-		assert.equal(new Listing('1,2,3').list, '1,2,3');
 	});
 
 	it('append new element to list', function () {
@@ -30,7 +62,7 @@ describe('listing.js', function () {
 		assert.equal(myList.list, '');
 	});
 
-	it('concat two lists into one', function () {
+	it('concat with given list', function () {
 		const myList = new Listing('1,2,3');
 		const myNewList = new Listing('4,5,6');
 		myList.concat(myNewList);
@@ -53,7 +85,12 @@ describe('listing.js', function () {
 		assert.equal(myList.list, '1,3');
 	});
 
-	it('filter list elements', function () {
+	it('compare lists for equality', function () {
+		const myList = new Listing('1,2,3');
+		assert(myList.equals(new Listing('1,2,3')));
+	});
+
+	it('filter list items', function () {
 		const myList = new Listing('1,2,3,4,5,6');
 		const newList = myList.filter(function (val) {
 			return val % 2 === 0;
@@ -102,12 +139,19 @@ describe('listing.js', function () {
 		assert.equal(myList.last(), '3');
 	});
 
-	it('map list elements', function () {
+	it('map list items', function () {
 		const myList = new Listing('1,2,3');
 		const newList = myList.map(function (val) {
 			return val * 2;
 		});
 		assert.equal(newList.list, '2,4,6');
+	});
+
+	it('merge given list and skip duplicates', function () {
+		const myList = new Listing('1,2,3');
+		const myNewList = new Listing('2,3,4');
+		myList.merge(myNewList);
+		assert.equal(myList.list, '1,2,3,4');
 	});
 
 	it('prepend list element', function () {
@@ -128,12 +172,12 @@ describe('listing.js', function () {
 		assert.equal(myList.list, '1,2,3,4');
 	});
 
-	it('get list elements without first element', function () {
+	it('get list items without first element', function () {
 		const myList = new Listing('1,2,3,4');
 		assert.equal(myList.rest(), '2,3,4');
 	});
 
-	it('reverse list elements', function () {
+	it('reverse list items', function () {
 		const myList = new Listing('one,two,three,four');
 		myList.reverse();
 		assert.equal(myList.list, 'four,three,two,one');
@@ -151,18 +195,25 @@ describe('listing.js', function () {
 		assert.equal(myList.list, 'hello;how;are;you');
 	});
 
-	it('slice list elements', function () {
-		const myList = new Listing('1,2,3,4,5');
-		assert.equal(myList.slice(1, 4), new Listing('2,3,4').list);
+	it('shuffle list items', function () {
+		const myList = new Listing('1,2,3,4,5,6');
+		myList.shuffle();
+		assert.notEqual(myList.list, '1,2,3,4,5,6');
 	});
 
-	it('sort list elements', function () {
+	it('slice list items', function () {
+		const myList = new Listing('1,2,3,4,5');
+		assert.equal(myList.slice(1, 4), '2,3,4');
+		assert.equal(myList.slice(), '1,2,3,4,5');
+	});
+
+	it('sort list items', function () {
 		const myList = new Listing('4,1,2,6,3,8,9');
 		myList.sort();
 		assert.equal(myList.list, '1,2,3,4,6,8,9');
 	});
 
-	it('swap list elements', function () {
+	it('swap list items', function () {
 		const myList = new Listing('1,2,3,4,5');
 		myList.swap(0, 4);
 		assert.equal(myList.list, '5,2,3,4,1');
@@ -172,5 +223,40 @@ describe('listing.js', function () {
 		const myList = new Listing('this,is,my,list');
 		const listArr = myList.toArray();
 		assert.deepEqual(listArr, ['this', 'is', 'my', 'list']);
+	});
+
+	it('iterate list items', function () {
+		const myList = new Listing('2,4,6,8');
+		let counter = 0;
+		myList.each(function (val, i) {
+			assert.equal(val, myList.getAt(counter));
+			assert.equal(i, counter);
+			counter++;
+		});
+	});
+
+	it('iterate list items parsed as number', function () {
+		const myList = new Listing('2,4,6,8');
+		const myArr = [2, 4, 6, 8];
+		let counter = 0;
+		myList.eachParsed(function (val, i) {
+			assert.equal(val, myArr[i]);
+			assert.equal(i, counter);
+			counter++;
+		});
+	});
+
+	it('iterate list via generator', function () {
+		const myList = new Listing('1,2,3,4');
+		let counter = 0;
+		for (const val of myList) assert(val === myList.getAt([counter++]));
+	});
+
+	it('validate list generator', function () {
+		const myList = new Listing('2,4,8');
+		const iterator = myList.values();
+		assert(iterator.next().value, 2);
+		assert(iterator.next().value, 4);
+		assert(iterator.next().value, 8);
 	});
 });

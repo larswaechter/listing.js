@@ -20,27 +20,28 @@ npm i --save listing.js
 
 ```javascript
 const Listing = require('listing.js');
-
 // ES6: import Listing from 'listing.js';
 
 const myList = new Listing('1,2,3,4');
 myList.append(5);
 
-myList.each((val) => {
-	console.log(val);
-});
+// 1 2 3 4 5
+for (const val of myList) console.log(val);
 ```
 
 ## Valid delimiters and lists:
 
-listing.js allows three different delimiters. In this case, each number is a single list item.
+listing.js currently supports six different delimiters. In this case, each number is a single list item.
 
 ```javascript
 const Listing = require('listing.js');
 
-const myList_1 = new Listing('1,2,3,4'); // ,
-const myList_2 = new Listing('1;2;3;4'); // ;
-const myList_3 = new Listing('1:2:3:4'); // :
+const myList1 = new Listing('1,2,3,4'); // ,
+const myList2 = new Listing('1;2;3;4'); // ;
+const myList3 = new Listing('1:2:3:4'); // :
+const myList4 = new Listing('1-2-3-4'); // -
+const myList5 = new Listing('1_2_3_4'); // _
+const myList6 = new Listing('1.2.3.4'); // .
 ```
 
 You can also use strings instead of numbers as items:
@@ -55,9 +56,9 @@ The list items are accessible via the `.list` property.
 Example:
 
 ```javascript
-const listing = require('listing.js');
+const Listing = require('listing.js');
 
-const myList = new listing('1,2,3');
+const myList = new Listing('1,2,3');
 console.log(myList.list); // Expected output: 1,2,3
 ```
 

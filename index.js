@@ -11,7 +11,7 @@ class Listing {
 	/**
 	 * Create new Listing instance from array
 	 *
-	 * @param {string[]} array
+	 * @param {string[] | number[]} array
 	 * @param {string} delimiter = ','
 	 * @returns {Listing} new instance
 	 */
@@ -26,7 +26,7 @@ class Listing {
 	 * @returns {boolean}
 	 */
 	static isValidDelimiter(delimiter) {
-		return delimiter.match(/,|;|:/g) !== null;
+		return delimiter.match(/,|;|:|-|_|\./g) !== null;
 	}
 
 	/**
@@ -39,19 +39,23 @@ class Listing {
 	}
 
 	/**
-	 * Get list delimiter
+	 * Get list delimiter. Returns "," as default delimiter.
 	 *
 	 * @returns {string} delimiter
 	 */
 	get delimiter() {
-		const delimiter = this.list.match(/,|;|:/g);
+		const delimiter = this.list.match(/,|;|:|-|_|\./g);
 		return delimiter !== null && delimiter.length ? delimiter[0] : ',';
+	}
+
+	*[Symbol.iterator]() {
+		return yield* this.toArray();
 	}
 
 	/**
 	 * Append new item to list
 	 *
-	 * @param {string} item
+	 * @param {string | number} item
 	 */
 	append(item) {
 		if (this.length === 0) this.list = item;
@@ -104,13 +108,13 @@ class Listing {
 	/**
 	 * Delete a list item at given position and return it.
 	 *
-	 * @param {number} pos
+	 * @param {number} position
 	 * @returns {string} deleted item
 	 */
-	deleteAt(pos) {
+	deleteAt(position) {
 		const listArr = this.toArray();
-		const removed = listArr[pos];
-		listArr.splice(pos, 1);
+		const removed = listArr[position];
+		listArr.splice(position, 1);
 		this.list = Listing.arrayToList(listArr, this.delimiter).list;
 		return removed;
 	}
@@ -123,6 +127,26 @@ class Listing {
 	each(callbackFn) {
 		const listArr = this.toArray();
 		for (var i = 0; i < listArr.length; i++) callbackFn(listArr[i], i);
+	}
+
+	/**
+	 * Iterate list and call a given callback function for each item pased as number.
+	 *
+	 * @param {Function} callbackFn callback function
+	 */
+	eachParsed(callbackFn) {
+		const listArr = this.toArray();
+		for (var i = 0; i < listArr.length; i++) callbackFn(+listArr[i], i);
+	}
+
+	/**
+	 * Check for equality with given list
+	 *
+	 * @param {Listing} list
+	 * @returns {boolean}
+	 */
+	equals(list) {
+		return this.list === list.list;
 	}
 
 	/**
@@ -173,12 +197,12 @@ class Listing {
 	/**
 	 * Get list item at given position.
 	 *
-	 * @param {number} pos
+	 * @param {number} position
 	 * @returns {string} item
 	 */
-	getAt(pos) {
+	getAt(position) {
 		const listArr = this.toArray();
-		return listArr[pos];
+		return listArr[position];
 	}
 
 	/**
@@ -241,9 +265,21 @@ class Listing {
 	}
 
 	/**
+	 * Merge list and skip duplicated values.
+	 *
+	 * @param {Listing} list
+	 */
+	merge(list) {
+		const listArr = this.toArray();
+		const mergeArr = list.toArray();
+		for (const item of mergeArr) if (!listArr.includes(item)) listArr.push(item);
+		this.list = Listing.arrayToList(listArr, this.delimiter).list;
+	}
+
+	/**
 	 * Prepend an item to list.
 	 *
-	 * @param {string} item
+	 * @param {string | number} item
 	 */
 	prepend(item) {
 		const listArr = this.toArray();
@@ -254,7 +290,7 @@ class Listing {
 	/**
 	 * Add item at start and end of list
 	 *
-	 * @param {string} item
+	 * @param {string | number} item
 	 */
 	qualify(item) {
 		const listArr = this.toArray();
@@ -321,13 +357,32 @@ class Listing {
 	}
 
 	/**
+	 * Shuffle list in place.
+	 */
+	shuffle() {
+		const listArr = this.toArray();
+		let counter = listArr.length;
+
+		// while there are elements in the array
+		while (counter > 0) {
+			// pick a random index
+			const idx = Math.floor(Math.random() * counter--);
+
+			// swap the last element with it
+			[listArr[counter], listArr[idx]] = [listArr[idx], listArr[counter]];
+		}
+
+		this.list = Listing.arrayToList(listArr, this.delimiter).list;
+	}
+
+	/**
 	 * Slice list from start to end position.
 	 *
-	 * @param {number} start
-	 * @param {number} end
+	 * @param {number} start = 0
+	 * @param {number} end = list length
 	 * @returns {Listing} sliced list
 	 */
-	slice(start, end) {
+	slice(start = 0, end = this.length) {
 		const newArr = this.toArray().slice(start, end);
 		return Listing.arrayToList(newArr, this.delimiter).list;
 	}
@@ -357,6 +412,13 @@ class Listing {
 		listArr[position2] = temp;
 
 		this.list = Listing.arrayToList(listArr, this.delimiter).list;
+	}
+
+	/**
+	 * Get a new Iterator object that contains the values for each list item.
+	 */
+	*values() {
+		for (const item of this) yield item;
 	}
 
 	/**
