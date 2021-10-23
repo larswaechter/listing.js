@@ -67,7 +67,7 @@ You can find the complete documentation [here](https://larswaechter.github.io/li
 
 ## Contributing
 
-See [CONTRIBUTING.md](https://github.com/larswaechter/listing.js/blob/master/README.md)
+See [CONTRIBUTING.md](https://github.com/larswaechter/listing.js/blob/master/CONTRIBUTING.md)
 
 ## License
 
