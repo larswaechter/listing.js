@@ -1,3 +1,5 @@
+'use strict';
+
 class Listing {
 	/**
 	 * Create Listing instance
@@ -88,7 +90,7 @@ class Listing {
 	 */
 	contains(substring) {
 		const listArr = this.toArray();
-		for (var i = 0; i < listArr.length; i++) if (listArr[i].includes(substring)) return i;
+		for (let i = 0; i < listArr.length; i++) if (listArr[i].includes(substring)) return i;
 		return -1;
 	}
 
@@ -102,7 +104,7 @@ class Listing {
 	containsNoCase(substring) {
 		const lower = new Listing(this.list.toLowerCase()).toArray();
 		const lowerSub = substring.toLowerCase();
-		for (var i = 0; i < lower.length; i++) if (lower[i].includes(lowerSub)) return i;
+		for (let i = 0; i < lower.length; i++) if (lower[i].includes(lowerSub)) return i;
 		return -1;
 	}
 
@@ -127,7 +129,7 @@ class Listing {
 	 */
 	each(callbackFn) {
 		const listArr = this.toArray();
-		for (var i = 0; i < listArr.length; i++) callbackFn(listArr[i], i);
+		for (let i = 0; i < listArr.length; i++) callbackFn(listArr[i], i);
 	}
 
 	/**
@@ -137,7 +139,7 @@ class Listing {
 	 */
 	eachParsed(callbackFn) {
 		const listArr = this.toArray();
-		for (var i = 0; i < listArr.length; i++) callbackFn(+listArr[i], i);
+		for (let i = 0; i < listArr.length; i++) callbackFn(+listArr[i], i);
 	}
 
 	/**
@@ -180,7 +182,7 @@ class Listing {
 	findNoCase(item) {
 		const lower = new Listing(this.list.toLowerCase()).toArray();
 		const lowerItem = item.toLowerCase();
-		for (const _item of lower) if (_item === lowerItem) return true;
+		for (const tmp of lower) if (tmp === lowerItem) return true;
 		return false;
 	}
 
@@ -215,8 +217,8 @@ class Listing {
 		const listArr = this.toArray();
 		const duplicates = [];
 
-		for (var i = 0; i < listArr.length; i++)
-			for (var k = i + 1; k < listArr.length; k++)
+		for (let i = 0; i < listArr.length; i++)
+			for (let k = i + 1; k < listArr.length; k++)
 				if (listArr[i] === listArr[k] && !duplicates.includes(listArr[k]))
 					duplicates.push(listArr[k]);
 
@@ -306,8 +308,8 @@ class Listing {
 	removeDuplicates() {
 		const listArr = this.toArray();
 
-		for (var i = 0; i < listArr.length; i++)
-			for (var k = i + 1; k < listArr.length; k++)
+		for (let i = 0; i < listArr.length; i++)
+			for (let k = i + 1; k < listArr.length; k++)
 				if (listArr[i] === listArr[k]) listArr.splice(k, 1);
 
 		this.list = Listing.arrayToList(listArr, this.delimiter).list;
