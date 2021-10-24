@@ -81,7 +81,7 @@ class Listing {
 
 	/**
 	 * Check if a list item contains a given substring and return its position (case-sensitive).
-	 * Returns -1 otherwise.
+	 * Return -1 otherwise.
 	 *
 	 * @param {string} substring
 	 * @returns {number} position
@@ -94,19 +94,20 @@ class Listing {
 
 	/**
 	 * Check if a list item contains a certain substring and return its position (case-insensitive).
-	 * Returns -1 otherwise.
+	 * Return -1 otherwise.
 	 *
 	 * @param {string} substring
 	 * @returns {number} position
 	 */
 	containsNoCase(substring) {
 		const lower = new Listing(this.list.toLowerCase()).toArray();
-		for (var i = 0; i < lower.length; i++) if (lower[i].includes(substring.toLowerCase())) return i;
+		const lowerSub = substring.toLowerCase();
+		for (var i = 0; i < lower.length; i++) if (lower[i].includes(lowerSub)) return i;
 		return -1;
 	}
 
 	/**
-	 * Delete a list item at given position and return it.
+	 * Delete a list item at a given position and return it.
 	 *
 	 * @param {number} position
 	 * @returns {string} deleted item
@@ -130,7 +131,7 @@ class Listing {
 	}
 
 	/**
-	 * Iterate list and call a given callback function for each item pased as number.
+	 * Iterate list and call a given callback function for each item parsed as number.
 	 *
 	 * @param {Function} callbackFn callback function
 	 */
@@ -150,7 +151,7 @@ class Listing {
 	}
 
 	/**
-	 * Returns the items that meet the condition specified in a callback function.
+	 * Return the items that meet the condition specified in a callback function.
 	 *
 	 * @param {Function} callbackFn filter function
 	 * @returns {Listing} filtered list
@@ -161,18 +162,17 @@ class Listing {
 	}
 
 	/**
-	 * Check if list includes given item (case-sensitive).
+	 * Check if th list includes a given item (case-sensitive).
 	 *
 	 * @param {string} item
 	 * @returns {boolean}
 	 */
 	find(item) {
-		const listArr = this.toArray();
-		return listArr.includes(item);
+		return this.toArray().includes(item);
 	}
 
 	/**
-	 * Check if list includes given item (case-insensitive).
+	 * Check if the list includes a given item (case-insensitive).
 	 *
 	 * @param {string} item
 	 * @returns {boolean}
@@ -185,24 +185,25 @@ class Listing {
 	}
 
 	/**
-	 * Get first list item.
+	 * Get the first list item.
 	 *
-	 * @returns {string} item
+	 * @returns {string | undefined} first item
 	 */
 	first() {
-		const listArr = this.toArray();
-		return listArr[0];
+		return this.toArray()[0];
 	}
 
 	/**
-	 * Get list item at given position.
+	 * Get the list item at a given position.
+	 * Use negative position to start from the list end.
 	 *
 	 * @param {number} position
-	 * @returns {string} item
+	 * @returns {string | undefined} item
 	 */
 	getAt(position) {
 		const listArr = this.toArray();
-		return listArr[position];
+		const index = position < 0 ? position + listArr.length : position;
+		return listArr[index];
 	}
 
 	/**
@@ -212,24 +213,24 @@ class Listing {
 	 */
 	getDuplicates() {
 		const listArr = this.toArray();
-		const tempArr = [];
+		const duplicates = [];
 
 		for (var i = 0; i < listArr.length; i++)
 			for (var k = i + 1; k < listArr.length; k++)
-				if (listArr[i] === listArr[k] && !tempArr.includes(listArr[k])) tempArr.push(listArr[k]);
+				if (listArr[i] === listArr[k] && !duplicates.includes(listArr[k]))
+					duplicates.push(listArr[k]);
 
-		return Listing.arrayToList(tempArr, this.delimiter);
+		return Listing.arrayToList(duplicates, this.delimiter);
 	}
 
 	/**
-	 * Get position in list of given item.
+	 * Get position in list of a given item.
 	 *
 	 * @param {string} item
 	 * @returns {number} position
 	 */
 	indexOf(item) {
-		const listArr = this.toArray();
-		return listArr.indexOf(item);
+		return this.toArray().indexOf(item);
 	}
 
 	/**
@@ -247,7 +248,7 @@ class Listing {
 	/**
 	 * Get last list item.
 	 *
-	 * @returns {string} last item
+	 * @returns {string | undefined} last item
 	 */
 	last() {
 		const listArr = this.toArray();
@@ -255,7 +256,7 @@ class Listing {
 	}
 
 	/**
-	 * Calls a defined callback function on each item, and returns an array that contains the results.
+	 * Call a defined callback function on each item, and return a list that contains the results.
 	 *
 	 * @param {Function} callbackFn map function
 	 */
@@ -277,7 +278,7 @@ class Listing {
 	}
 
 	/**
-	 * Prepend an item to list.
+	 * Prepend an item to the list.
 	 *
 	 * @param {string | number} item
 	 */
@@ -288,7 +289,7 @@ class Listing {
 	}
 
 	/**
-	 * Add item at start and end of list
+	 * Add an item at the start and end of the list.
 	 *
 	 * @param {string | number} item
 	 */
@@ -313,14 +314,14 @@ class Listing {
 	}
 
 	/**
-	 * Get list without first item.
+	 * Get the list without the first item.
 	 *
 	 * @returns {Listing}
 	 */
 	rest() {
 		const listArr = this.toArray();
 		listArr.shift();
-		return Listing.arrayToList(listArr, this.delimiter).list;
+		return Listing.arrayToList(listArr, this.delimiter);
 	}
 
 	/**
@@ -332,15 +333,17 @@ class Listing {
 	}
 
 	/**
-	 * Set list item to value at given position.
+	 * Set a list item to a value at a given position.
+	 * Use negative position to start from the list end.
 	 *
 	 * @param {string} position
 	 * @param {string} value
 	 */
 	setAt(position, value) {
 		const listArr = this.toArray();
-		if (position > listArr.length) throw new Error('Invalid list position!');
-		listArr[position] = value;
+		const index = position < 0 ? position + listArr.length : position;
+		if (index >= listArr.length || index < 0) throw new Error('Invalid list position!');
+		listArr[index] = value;
 		this.list = Listing.arrayToList(listArr, this.delimiter).list;
 	}
 
@@ -351,7 +354,6 @@ class Listing {
 	 */
 	setDelimiter(delimiter) {
 		if (!Listing.isValidDelimiter(delimiter)) throw new Error('Invalid delimiter: ' + delimiter);
-
 		const regex = new RegExp(this.delimiter, 'g');
 		this.list = this.list.replace(regex, delimiter);
 	}
@@ -384,7 +386,7 @@ class Listing {
 	 */
 	slice(start = 0, end = this.length) {
 		const newArr = this.toArray().slice(start, end);
-		return Listing.arrayToList(newArr, this.delimiter).list;
+		return Listing.arrayToList(newArr, this.delimiter);
 	}
 
 	/**
@@ -400,16 +402,19 @@ class Listing {
 
 	/**
 	 * Swap list items at given positions.
+	 * Use negative position to start from the list end.
 	 *
 	 * @param {number} position1
 	 * @param {number} position2
 	 */
 	swap(position1, position2) {
 		const listArr = this.toArray();
+		const index1 = position1 < 0 ? listArr.length + position1 : position1;
+		const index2 = position2 < 0 ? listArr.length + position2 : position2;
 
-		const temp = listArr[position1];
-		listArr[position1] = listArr[position2];
-		listArr[position2] = temp;
+		const temp = listArr[index1];
+		listArr[index1] = listArr[index2];
+		listArr[index2] = temp;
 
 		this.list = Listing.arrayToList(listArr, this.delimiter).list;
 	}
