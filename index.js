@@ -436,6 +436,10 @@ class Listing {
 	toArray() {
 		return this.list.split(this.delimiter);
 	}
+
+	every(arg) {
+		return this.toArray().reduce((bef,now) => { return arg(now) !== bef });
+	}
 }
 
 module.exports = Listing;
