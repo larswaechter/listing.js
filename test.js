@@ -271,7 +271,13 @@ describe('listing.js', () => {
 
 	it('validate every method', () => {
 		const myList = new Listing('2,4,6,9');
-		assert.equal(myList.every((item) => item % 2 === 0),false);    // Returns true
-		assert.equal(myList.every((item) => item < 10),true);    // Returns false
+		assert.equal(
+			myList.every((item) => item % 2 === 0),
+			false
+		);
+		assert.equal(
+			myList.every((item) => item < 10),
+			true
+		);
 	});
 });

@@ -437,8 +437,16 @@ class Listing {
 		return this.list.split(this.delimiter);
 	}
 
-	every(arg) {
-		return this.toArray().reduce((bef,now) => { return arg(now) !== bef });
+	/**
+	 * Verify array using callback function.
+	 *
+	 * @param {Function} compareFn compare function
+	 * @returns {boolean} array
+	 */
+	every(callbackFn) {
+		return this.toArray().reduce((bef, now) => {
+			return callbackFn(now) !== bef;
+		});
 	}
 }
 
