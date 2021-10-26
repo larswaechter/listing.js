@@ -436,6 +436,14 @@ class Listing {
 	toArray() {
 		return this.list.split(this.delimiter);
 	}
+
+	some(arg) {
+		let response = false;
+		for(let i in this.list.split(this.delimiter)){
+			if (arg(i)) response = true;
+		}
+		return response;
+	}
 }
 
 module.exports = Listing;
