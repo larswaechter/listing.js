@@ -1,5 +1,7 @@
 'use strict';
 
+let a;
+
 class Listing {
 	/**
 	 * Create Listing instance
