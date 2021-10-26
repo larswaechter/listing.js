@@ -436,6 +436,18 @@ class Listing {
 	toArray() {
 		return this.list.split(this.delimiter);
 	}
+
+	/**
+	 * Verify array using callback function.
+	 *
+	 * @param {Function} compareFn compare function
+	 * @returns {boolean}
+	 */
+	every(callbackFn) {
+		return this.toArray().reduce((bef, now) => {
+			return callbackFn(now) !== bef;
+		});
+	}
 }
 
 module.exports = Listing;
