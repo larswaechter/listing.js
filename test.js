@@ -271,7 +271,7 @@ describe('listing.js', () => {
 
 	it('validate some method', () => {
 		const myList = new Listing('2,4,8');
-		assert.equal(myList.some((item) => item % 2 === 1),true);    // Returns true
+		assert.equal(myList.some((item) => item % 2 === 0),true);    // Returns true
 		assert.equal(myList.some((item) => item > 10),false);    // Returns false
 	});
 });

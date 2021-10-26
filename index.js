@@ -438,11 +438,7 @@ class Listing {
 	}
 
 	some(arg) {
-		let response = false;
-		for(let i in this.list.split(this.delimiter)){
-			if (arg(i)) response = true;
-		}
-		return response;
+		return this.toArray().filter((item) => {return arg(item)}).length > 0;
 	}
 }
 
