@@ -441,7 +441,7 @@ class Listing {
 	 * Verify array using callback function.
 	 *
 	 * @param {Function} compareFn compare function
-	 * @returns {boolean} array
+	 * @returns {boolean}
 	 */
 	every(callbackFn) {
 		return this.toArray().reduce((bef, now) => {
