@@ -27,8 +27,7 @@ list.prepend(0);
 list.append(5);
 
 // 0 1 2 3 4 5
-for (const item of list)
-	console.log(item);
+for (const item of list) console.log(item);
 ```
 
 The list items are accessible via the `.list` property:
