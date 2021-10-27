@@ -38,6 +38,11 @@ describe('listing.js', () => {
 		assert(Listing.isValidDelimiter('.'));
 		assert.equal(myList5.delimiter, '.');
 		assert.equal(myList5.list, '1.2.3');
+
+		const myList6 = new Listing('1|2|3');
+		assert(Listing.isValidDelimiter('|'));
+		assert.equal(myList6.delimiter, '|');
+		assert.equal(myList6.list, '1|2|3');
 	});
 
 	it('compare list items', () => {
