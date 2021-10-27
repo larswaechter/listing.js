@@ -4,72 +4,72 @@ A JavaScript library for working with comma separated lists
 
 [![NPM](https://nodei.co/npm/listing.js.png)](https://nodei.co/npm/listing.js/)
 
-## Introduction:
+## Introduction
 
 listing.js is a library that simplifies the work with comma separated lists in JavaScript. Most of the features are similar to those of array methods. Besides commas, other delimiters are supported as well.
 
-## Installation:
+## 💻 Installation
 
-Install via npm
+Install via npm or yarn:
 
 ```
 npm i --save listing.js
 ```
 
-## Usage:
+## 🔨 Usage
 
 ```javascript
-const Listing = require('listing.js');
 // ES6: import Listing from 'listing.js';
+const Listing = require('listing.js');
 
-const myList = new Listing('1,2,3,4');
-myList.append(5);
+const list = new Listing('1,2,3,4');
+list.prepend(0);
+list.append(5);
 
-// 1 2 3 4 5
-for (const val of myList) console.log(val);
+// 0 1 2 3 4 5
+for (const item of list) console.log(item);
 ```
 
-## Valid delimiters and lists:
-
-listing.js currently supports six different delimiters. In this case, each number is a single list item.
+The list items are accessible via the `.list` property:
 
 ```javascript
-const Listing = require('listing.js');
-
-const myList1 = new Listing('1,2,3,4'); // ,
-const myList2 = new Listing('1;2;3;4'); // ;
-const myList3 = new Listing('1:2:3:4'); // :
-const myList4 = new Listing('1-2-3-4'); // -
-const myList5 = new Listing('1_2_3_4'); // _
-const myList6 = new Listing('1.2.3.4'); // .
+const myList = new Listing('1,2,3');
+console.log(myList.list); // 1,2,3
 ```
 
 You can also use strings instead of numbers as items:
 
 ```javascript
-const Listing = require('listing.js');
-
-const myList = new Listing('hello,I,am,John');
+const list = new Listing('hello,I,am,John');
 ```
 
-The list items are accessible via the `.list` property.
-Example:
+listing.js supports the following delimiters. In this case, each number is a single list item:
 
 ```javascript
-const Listing = require('listing.js');
-
-const myList = new Listing('1,2,3');
-console.log(myList.list); // Expected output: 1,2,3
+const list1 = new Listing('1,2,3'); // ,
+const list2 = new Listing('1;2;3'); // ;
+const list3 = new Listing('1:2:3'); // :
+const list4 = new Listing('1-2-3'); // -
+const list5 = new Listing('1_2_3'); // _
+const list6 = new Listing('1.2.3'); // .
 ```
 
-## Documentation
+The delimiter can be changed later on:
 
-You can find the complete documentation [here](https://larswaechter.github.io/listing.js/).
+```javascript
+const myList = new Listing('1,2,3');
+myList.setDelimiter(':')
+console.log(myList.list); // 1:2:3
+```
 
-## Contributing
+## 📚 Documentation
+
+You can find the complete documentation including all available methods [here](https://larswaechter.github.io/listing.js/).
+
+## :octocat: Contributing
 
 See [CONTRIBUTING.md](https://github.com/larswaechter/listing.js/blob/master/CONTRIBUTING.md)
 
-## License
+## 🔓 License
 
 [MIT](https://github.com/larswaechter/listing.js/blob/master/LICENSE)
