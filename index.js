@@ -448,6 +448,15 @@ class Listing {
 			return callbackFn(now) !== bef;
 		});
 	}
+
+	/**
+	 * Returns true if the list is empty or otherwise.
+	 *
+	 * @returns {boolean}
+	 */
+	isEmpty() {
+		return this.list === '';
+	}
 }
 
 module.exports = Listing;
