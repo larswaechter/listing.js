@@ -285,4 +285,11 @@ describe('listing.js', () => {
 			true
 		);
 	});
+
+	it('validate isEmpty method', () => {
+		const myList = new Listing('2,4,8');
+		const newList = new Listing();
+		assert.equal(myList.isEmpty(), false); // Returns false
+		assert.equal(newList.isEmpty(), true); // Returns true
+	});
 });
