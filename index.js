@@ -28,7 +28,7 @@ class Listing {
 	 * @returns {boolean}
 	 */
 	static isValidDelimiter(delimiter) {
-		return delimiter.match(/,|;|:|-|_|\./g) !== null;
+		return delimiter.match(/,|;|:|-|\||_|\./g) !== null;
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Listing {
 	 * @returns {string} delimiter
 	 */
 	get delimiter() {
-		const delimiter = this.list.match(/,|;|:|-|_|\./g);
+		const delimiter = this.list.match(/,|;|:|\||-|_|\./g);
 		return delimiter !== null && delimiter.length ? delimiter[0] : ',';
 	}
 
