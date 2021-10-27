@@ -52,6 +52,7 @@ const list3 = new Listing('1:2:3'); // :
 const list4 = new Listing('1-2-3'); // -
 const list5 = new Listing('1_2_3'); // _
 const list6 = new Listing('1.2.3'); // .
+const list7 = new Listing('1|2|3'); // |
 ```
 
 The delimiter can be changed later on:
