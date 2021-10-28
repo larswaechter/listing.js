@@ -5,7 +5,6 @@ A JavaScript library for working with comma separated lists.
 [![NPM](https://nodei.co/npm/listing.js.png)](https://nodei.co/npm/listing.js/)
 
 ![Tests](https://github.com/larswaechter/listing.js/actions/workflows/tests.yaml/badge.svg)
-
 ![Linter](https://github.com/larswaechter/listing.js/actions/workflows/linter.yaml/badge.svg)
 
 ## Introduction
