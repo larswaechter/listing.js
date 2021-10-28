@@ -1,8 +1,12 @@
 # listing.js
 
-A JavaScript library for working with comma separated lists
+A JavaScript library for working with comma separated lists.
 
 [![NPM](https://nodei.co/npm/listing.js.png)](https://nodei.co/npm/listing.js/)
+
+![Tests](https://github.com/larswaechter/listing.js/actions/workflows/tests.yaml/badge.svg)
+
+![Linter](https://github.com/larswaechter/listing.js/actions/workflows/linter.yaml/badge.svg)
 
 ## Introduction
 
@@ -59,7 +63,7 @@ The delimiter can be changed later on:
 
 ```javascript
 const myList = new Listing('1,2,3');
-myList.setDelimiter(':')
+myList.setDelimiter(':');
 console.log(myList.list); // 1:2:3
 ```
 
