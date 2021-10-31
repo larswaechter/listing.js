@@ -28,7 +28,7 @@ class Listing {
 	 * @returns {boolean}
 	 */
 	static isValidDelimiter(delimiter) {
-		return delimiter.match(/,|;|:|-|_|\./g) !== null;
+		return delimiter.match(/,|;|:|-|\||_|\./g) !== null;
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Listing {
 	 * @returns {string} delimiter
 	 */
 	get delimiter() {
-		const delimiter = this.list.match(/,|;|:|-|_|\./g);
+		const delimiter = this.list.match(/,|;|:|\||-|_|\./g);
 		return delimiter !== null && delimiter.length ? delimiter[0] : ',';
 	}
 
@@ -437,8 +437,34 @@ class Listing {
 		return this.list.split(this.delimiter);
 	}
 
-	some(arg) {
-		return this.toArray().filter((item) => {return arg(item)}).length > 0;
+  /**
+	 * Verify array using callback function searching some value that fullfils the condition.
+	 *
+	 * @param {Function} compareFn compare function
+	 * @returns {boolean}
+	 */
+	some(callbackFn) {
+		return this.toArray().filter((item) => {return callbackFn(item)}).length > 0;
+
+  /**
+	 * Verify array using callback function.
+	 *
+	 * @param {Function} compareFn compare function
+	 * @returns {boolean}
+	 */
+	every(callbackFn) {
+		return this.toArray().reduce((bef, now) => {
+			return callbackFn(now) !== bef;
+		});
+	}
+
+	/**
+	 * Returns true if the list is empty or otherwise.
+	 *
+	 * @returns {boolean}
+	 */
+	isEmpty() {
+		return this.list === '';
 	}
 }
 

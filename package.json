@@ -26,6 +26,10 @@
 	"bugs": {
 		"url": "https://github.com/larswaechter/listing.js/issues"
 	},
+	"keywords": [
+		"lists",
+		"csv"
+	],
 	"devDependencies": {
 		"eslint": "^7.32.0",
 		"eslint-config-airbnb-base": "^14.2.1",
@@ -33,6 +37,6 @@
 		"eslint-plugin-import": "^2.25.2",
 		"jsdoc": "^3.6.7",
 		"mocha": "^9.1.3",
-		"prettier": "^2.4.1"
+		"prettier": "2.4.1"
 	}
 }

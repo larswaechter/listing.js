@@ -38,6 +38,11 @@ describe('listing.js', () => {
 		assert(Listing.isValidDelimiter('.'));
 		assert.equal(myList5.delimiter, '.');
 		assert.equal(myList5.list, '1.2.3');
+
+		const myList6 = new Listing('1|2|3');
+		assert(Listing.isValidDelimiter('|'));
+		assert.equal(myList6.delimiter, '|');
+		assert.equal(myList6.list, '1|2|3');
 	});
 
 	it('compare list items', () => {
@@ -273,5 +278,23 @@ describe('listing.js', () => {
 		const myList = new Listing('2,4,8');
 		assert.equal(myList.some((item) => item % 2 === 0),true);    // Returns true
 		assert.equal(myList.some((item) => item > 10),false);    // Returns false
+
+    it('validate every method', () => {
+		const myList = new Listing('2,4,6,9');
+		assert.equal(
+			myList.every((item) => item % 2 === 0),
+			false
+		);
+		assert.equal(
+			myList.every((item) => item < 10),
+			true
+		);
+	});
+
+	it('validate isEmpty method', () => {
+		const myList = new Listing('2,4,8');
+		const newList = new Listing();
+		assert.equal(myList.isEmpty(), false); // Returns false
+		assert.equal(newList.isEmpty(), true); // Returns true
 	});
 });
