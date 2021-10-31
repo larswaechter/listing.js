@@ -438,6 +438,20 @@ class Listing {
 	}
 
 	/**
+	 * Verify array using callback function searching some value that fullfils the condition.
+	 *
+	 * @param {Function} compareFn compare function
+	 * @returns {boolean}
+	 */
+	some(callbackFn) {
+		return (
+			this.toArray().filter((item) => {
+				return callbackFn(item);
+			}).length > 0
+		);
+	}
+
+	/**
 	 * Verify array using callback function.
 	 *
 	 * @param {Function} compareFn compare function

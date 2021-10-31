@@ -274,6 +274,18 @@ describe('listing.js', () => {
 		assert.equal(iterator.next().value, 8);
 	});
 
+	it('validate some method', () => {
+		const myList = new Listing('2,4,8');
+		assert.equal(
+			myList.some((item) => item % 2 === 0),
+			true
+		);
+		assert.equal(
+			myList.some((item) => item > 10),
+			false
+		);
+	});
+
 	it('validate every method', () => {
 		const myList = new Listing('2,4,6,9');
 		assert.equal(
