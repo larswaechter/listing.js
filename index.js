@@ -438,21 +438,19 @@ class Listing {
 	}
 
 	/**
-	 * Verify array using callback function searching some value that fullfils the condition.
+	 * Determines whether at least one list elements satisfy the specified test.
 	 *
 	 * @param {Function} compareFn compare function
 	 * @returns {boolean}
 	 */
 	some(callbackFn) {
-		return (
-			this.toArray().filter((item) => {
-				return callbackFn(item);
-			}).length > 0
-		);
+		const listArr = this.toArray();
+		for (const item of listArr) if (callbackFn(item)) return true;
+		return false;
 	}
 
 	/**
-	 * Verify array using callback function.
+	 * Determines whether all list elements satisfy the specified test.
 	 *
 	 * @param {Function} compareFn compare function
 	 * @returns {boolean}
